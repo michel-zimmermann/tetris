@@ -1,5 +1,8 @@
 package tetris.robo;
 
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.InputEvent;
@@ -16,10 +19,11 @@ public class PosicionadorTela implements Inicializavel {
 		busca.setMoverMouse(true);
 		
 		if (busca.buscar()) {
+			PointerInfo info = MouseInfo.getPointerInfo();
+			Point localDoMouse = info.getLocation();
+			// x,y = 8,7 : diferenca entre o icone do jogo e a ponta da janela
+			Robo.moverMouse(localDoMouse.x-8, localDoMouse.y-7);
 			Robo.dragAndDrop(InputEvent.BUTTON1_DOWN_MASK, 0, 0);
-		} else {
-			throw new IllegalStateException("Tela do jogo nao encontrada.");
 		}
 	}
-	
 }
